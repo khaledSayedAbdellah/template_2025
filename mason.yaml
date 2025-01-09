@@ -5,12 +5,12 @@ bricks:
   mvc_screen_res:
     git:
       url: https://github.com/khaledSayedAbdellah/bricks_mvc_screen_res
-      ref: "b142c8f"
+      ref: "d95b5ff"
 
   mvc_screen:
     git:
       url: https://github.com/khaledSayedAbdellah/bricks_mvc_screen
-      ref: "569bd38"
+      ref: "57412c6"
 
 
   # Bricks can be imported via version constraint from a registry.

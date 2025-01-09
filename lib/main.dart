@@ -1,11 +1,10 @@
-import 'package:fast_http/fast_http.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import './Utilities/shared_preferences.dart';
 import 'package:rush/rush.dart';
+import 'Utilities/fast_http_config.dart';
 import 'Utilities/git_it.dart';
 import 'Utilities/router_config.dart';
 import 'package:provider/provider.dart';
@@ -26,22 +25,7 @@ Future<void> main() async {
     startLargeSize: 1200,
   );
 
-  FastHttp.initialize(
-    checkStatusKey: "data",
-    getErrorMessageFromResponse: (dynamic response)=> response.toString(),
-    onGetResponseStatusCode: (int statusCode){
-      switch (statusCode) {
-        case 302: {break;} // the requested resource has been temporarily moved to the URL in the Location header
-        case 403: {break;} // forbidden—you don't have permission to access this resource
-        case 401: {break;} // Unauthorized
-        case 503: {break;} // server is too busy or is temporarily down for maintenance.y
-      }
-    },
-  );
-
-  FastHttpHeader().addHeader("Accept", "*/*");
-  FastHttpHeader().addHeader("content-type", "application/json");
-  FastHttpHeader().addDynamicHeader("token", ()async=> SharedPref.getCurrentUser()?.token??"");
+  FastHttpConfig.init();
 
   await GitIt.initGitIt();
   runApp(
