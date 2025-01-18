@@ -18,9 +18,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   RushSetup.init(
-    enableLargeScreens: true,
-    enableMediumScreens: false,
-    enableSmallScreens: false,
+    largeScreens: RushScreenSize.large,
+    mediumScreens: RushScreenSize.medium,
+    smallScreens: RushScreenSize.small,
     startMediumSize: 768,
     startLargeSize: 1200,
   );
@@ -44,10 +44,6 @@ Future<void> main() async {
 class EntryPoint extends StatelessWidget {
   const EntryPoint({super.key});
 
-  static Size largeSize = const Size(1920,1080);
-  static Size mediumSize = const Size(1000,780);
-  static Size smallSize = const Size(375,812);
-
   @override
   Widget build(BuildContext context) {
     final appLan = Provider.of<AppLanguage>(context);
@@ -56,16 +52,13 @@ class EntryPoint extends StatelessWidget {
     appTheme.fetchTheme();
     return LayoutBuilder(
       builder: (context, constraints) {
-        Size appSize = largeSize;
-        if (constraints.maxWidth <= RushSetup.startMediumSize) {
-          if(RushSetup.enableSmallScreens) appSize = smallSize;
-        } else if (constraints.maxWidth <= RushSetup.startLargeSize && constraints.maxWidth > RushSetup.startMediumSize) {
-          if(RushSetup.enableMediumScreens) appSize = mediumSize;
-        } else {
-          appSize = largeSize;
-        }
         return ScreenUtilInit(
-          designSize: appSize,
+          designSize: RushSetup.getSize(
+            maxWidth: constraints.maxWidth,
+            largeSize: const Size(1920,1080),
+            mediumSize: const Size(1000,780),
+            smallSize: const Size(375,812),
+          ),
           builder:(_,__)=> MaterialApp.router(
             scrollBehavior: MyCustomScrollBehavior(),
             routerConfig: GoRouterConfig.router,

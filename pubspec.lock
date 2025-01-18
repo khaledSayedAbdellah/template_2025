@@ -449,8 +449,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "1639bcc"
-      resolved-ref: "1639bccc5b8d645ae65f26ee616ea478e6ae4589"
+      ref: "2ff9fce"
+      resolved-ref: "2ff9fcecd2a693922b7dab2ae46d5cf6f1e525f5"
       url: "https://github.com/khaledSayedAbdellah/rush"
     source: git
     version: "0.0.1"
